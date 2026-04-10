@@ -1,6 +1,6 @@
 """
 AI Resume Reviewer — Streamlit Interface
-Menggunakan LangChain + Gemini untuk analisis kecocokan CV dengan Job Description
+Menggunakan LangChain + Gemini API untuk analisis kecocokan CV dengan Job Description
 """
 
 import sys
@@ -446,45 +446,55 @@ def render_results(result: ReviewResult):
     col_str, col_gap = st.columns(2, gap="medium")
 
     with col_str:
-        items_html = ""
-        for s in result.strengths:
-            items_html += f"""
+        strengths_html = "".join(
+            f"""
             <div class="list-item">
                 <span class="dot" style="background:#4caf50;"></span>
                 <div>
                     <div class="item-point">{s.point}</div>
                     <div class="item-detail">{s.detail}</div>
                 </div>
-            </div>"""
-        st.markdown(f"""
-        <div class="result-section">
-            <div class="section-title" style="color:#1a5c2a;">🌟 Kekuatan Kandidat ({len(result.strengths)})</div>
-            {items_html}
-        </div>
-        """, unsafe_allow_html=True)
+            </div>
+            """
+            for s in result.strengths
+        )
+        st.markdown(
+            f"""
+            <div class="result-section">
+                <div class="section-title" style="color:#1a5c2a;">🌟 Kekuatan Kandidat ({len(result.strengths)})</div>
+                {strengths_html}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     with col_gap:
-        items_html = ""
-        for g in result.gaps:
-            items_html += f"""
+        gaps_html = "".join(
+            f"""
             <div class="list-item">
                 <span class="dot" style="background:#ff9800;"></span>
                 <div>
                     <div class="item-point">{g.point}</div>
                     <div class="item-detail">{g.detail}</div>
                 </div>
-            </div>"""
-        st.markdown(f"""
-        <div class="result-section">
-            <div class="section-title" style="color:#7a4500;">⚡ Area Perlu Ditingkatkan ({len(result.gaps)})</div>
-            {items_html}
-        </div>
-        """, unsafe_allow_html=True)
+            </div>
+            """
+            for g in result.gaps
+        )
+        st.markdown(
+            f"""
+            <div class="result-section">
+                <div class="section-title" style="color:#7a4500;">⚡ Area Perlu Ditingkatkan ({len(result.gaps)})</div>
+                {gaps_html}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown("""
     <hr>
     <p style='text-align:center;color:#bbb;font-size:0.75rem;'>
-        Dianalisis oleh LangChain · Gemini AI · Hasil bersifat rekomendasi
+        Dianalisis oleh LangChain · Gemini · Hasil bersifat rekomendasi
     </p>
     """, unsafe_allow_html=True)
 
