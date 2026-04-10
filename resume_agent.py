@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import io
 import json
+import os
 import re
 from dataclasses import dataclass, field
 from typing import List
@@ -142,8 +143,24 @@ class ResumeReviewAgent:
           → parse_json_output    (parse ke dict)
     """
 
-    def __init__(self, model: str = "gemini-2.5-flash", temperature: float = 0.1):
-        self.llm = ChatGoogleGenerativeAI(model=model, temperature=temperature)
+    def __init__(
+        self,
+        model: str = "gemini-2.5-flash",
+        temperature: float = 0.1,
+        api_key: str | None = None,
+    ):
+        api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError(
+                "API key tidak ditemukan. Setel environment variable `GOOGLE_API_KEY` atau `GEMINI_API_KEY`, "
+                "atau panggil ResumeReviewAgent(api_key='...')."
+            )
+
+        self.llm = ChatGoogleGenerativeAI(
+            model=model,
+            temperature=temperature,
+            api_key=api_key,
+        )
 
         self.prompt = ChatPromptTemplate.from_messages([
             ("system", SYSTEM_TEMPLATE),
