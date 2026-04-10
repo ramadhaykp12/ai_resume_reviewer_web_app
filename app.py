@@ -1,6 +1,6 @@
 """
 AI Resume Reviewer — Streamlit Interface
-Menggunakan LangChain + Claude untuk analisis kecocokan CV dengan Job Description
+Menggunakan LangChain + Gemini untuk analisis kecocokan CV dengan Job Description
 """
 
 import sys
@@ -484,7 +484,7 @@ def render_results(result: ReviewResult):
     st.markdown("""
     <hr>
     <p style='text-align:center;color:#bbb;font-size:0.75rem;'>
-        Dianalisis oleh LangChain · Claude AI · Hasil bersifat rekomendasi
+        Dianalisis oleh LangChain · Gemini AI · Hasil bersifat rekomendasi
     </p>
     """, unsafe_allow_html=True)
 
