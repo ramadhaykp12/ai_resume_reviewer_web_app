@@ -315,7 +315,7 @@ def render_header():
     st.markdown("""
     <div class="app-header">
         <div>
-            <div class="header-badge">⚡ Powered by LangChain + Claude</div>
+            <div class="header-badge">⚡ Powered by LangChain + Gemini</div>
             <h1 class="header-title">AI Resume Reviewer</h1>
             <p class="header-sub">Analisis mendalam kecocokan CV dengan Job Description secara otomatis</p>
         </div>
