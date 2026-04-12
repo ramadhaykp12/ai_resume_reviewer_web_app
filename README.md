@@ -26,7 +26,13 @@ Install all required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+Export the API key from Google AI Studio
+```bash
+$env:GOOGLE_API_KEY="YOUR_API_KEY"
+```
+
 Running the program
+
 ```bash
 streamlit run app.py
 ```
